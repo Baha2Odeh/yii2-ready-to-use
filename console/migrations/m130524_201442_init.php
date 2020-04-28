@@ -10,7 +10,7 @@ class m130524_201442_init extends Migration
         $this->createTable('{{%user_type}}',[
             'id' => $this->primaryKey(),
             'name' => $this->string()->notNull(),
-            'status' => $this->smallInteger()->notNull()->defaultValue(1),
+            'is_active' => $this->smallInteger()->notNull()->defaultValue(0),
         ]);
 
 
@@ -32,25 +32,9 @@ class m130524_201442_init extends Migration
             'access_token'=>$this->string(80)->null()->unique(), // for api
             'country_id' => $this->integer()->null(),
             'city_id'=>$this->integer()->null(),
-            'status' => $this->smallInteger()->notNull()->defaultValue(1),
+            'is_active' => $this->smallInteger()->notNull()->defaultValue(0),
             'media_id'=>$this->integer()->null(),
         ]);
-
-
-
-
-
-        $this->createTable('{{%education}}',[
-            'id'=>$this->primaryKey(),
-            'user_id'=>$this->integer(),
-            'institution_id'=>$this->integer(),
-            'type'=>"ENUM('academic','certificate','course') default null",
-            'description'=>$this->string()->null(),
-            'date'=>$this->date()->null(),
-            'media_id'=>$this->integer()->null(),
-        ]);
-
-
 
 
 
@@ -68,7 +52,7 @@ class m130524_201442_init extends Migration
             'path'=>$this->text()->notNull(),
             'extension'=>$this->text()->notNull(),
             'size'=>$this->double()->null(),
-            'status'=>$this->smallInteger()->defaultValue(1),
+            'is_active'=>$this->smallInteger()->defaultValue(1),
         ]);
 
 
@@ -106,16 +90,6 @@ class m130524_201442_init extends Migration
         $this->addForeignKey('fk_user_user_type_id','user','user_type_id','user_type','id');
         $this->addForeignKey('fk_user_country_id','user','country_id','country','id');
         $this->addForeignKey('fk_user_city_id','user','city_id','city','id');
-
-
-
-
-
-        $this->addForeignKey('fk_education_user_id','education','user_id','user','id');
-        $this->addForeignKey('fk_education_media_id','education','media_id','media','id');
-        $this->addForeignKey('fk_education_institution_id','education','institution_id','institution','id');
-
-
 
         $this->addForeignKey('fk_user_media_id','user','media_id','media','id');
 

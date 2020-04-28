@@ -28,11 +28,12 @@ class UserController extends Controller
             'delete' => ['POST'],
         ];
     }
+
     public function rules()
     {
         return [
             [
-                'actions' => ['index','view','create','update','delete','profile'],
+                'actions' => ['index', 'view', 'create', 'update', 'delete', 'profile'],
                 'allow' => true,
                 'roles' => ['manageUser'],
             ],
@@ -64,11 +65,11 @@ class UserController extends Controller
         $model = $this->findModel($id);
         return $this->render('view', [
             'model' => $model,
-            'educationDataProvider' => new ActiveDataProvider(['query' => $model->getEducations()])
         ]);
     }
 
-    public function actionProfile(){
+    public function actionProfile()
+    {
         return $this->actionUpdate(Yii::$app->user->identity->id);
     }
 
@@ -80,88 +81,11 @@ class UserController extends Controller
     public function actionCreate()
     {
         $model = new User(['scenario' => 'create']);
-        $modelsEducations = [new Education()];
-        if ($model->load(Yii::$app->request->post())) {
-
-
-######
-            /** @var Education[] $modelsEducations */
-            $modelsEducations = ActiveRecord::createMultiple(Education::classname());
-            ActiveRecord::loadMultiple($modelsEducations, Yii::$app->request->post());
-            foreach ($modelsEducations as $index => $education) {
-                $education->image = \yii\web\UploadedFile::getInstance($education, "[{$index}]image");
-            }
-
-            $model->image = \yii\web\UploadedFile::getInstance($model, "image");
-
-
-
-
-            // ajax validation
-            if (Yii::$app->request->isAjax) {
-                Yii::$app->response->format = Response::FORMAT_JSON;
-                    return ArrayHelper::merge(
-                        ActiveForm::validateMultiple($modelsEducations),
-                        ActiveForm::validate($model)
-                    );
-
-            }
-
-
-            // validate all models
-            $valid = $model->validate();
-            $valid = ActiveRecord::validateMultiple($modelsEducations) && $valid;
-
-
-
-            if ($valid) {
-                $transaction = \Yii::$app->db->beginTransaction();
-
-                try {
-
-                    if(!empty($model->image)){
-                        $media = FileUploadHelper::upload($model->image);
-                        if(!empty($media)){
-                            $model->media_id = $media->id;
-                        }
-                    }
-                    if ($flag = $model->save(false)) {
-
-
-
-
-                        foreach ($modelsEducations as $education) {
-                            $education->user_id = $model->id;
-                            if(!empty($education->image)){
-                                $media = FileUploadHelper::upload($education->image);
-                                if(!empty($media)){
-                                    $education->media_id = $media->id;
-                                }
-                            }
-                            if (($flag = $education->save(false)) === false) {
-                                $transaction->rollBack();
-                                break;
-                            }
-                        }
-                    }
-                    if ($flag) {
-                        $transaction->commit();
-                        return $this->redirect(['view', 'id' => $model->id]);
-                    }
-                } catch (\Exception $e) {
-                    $transaction->rollBack();
-                }
-            }
-
-
-            ######
-
-
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['view', 'id' => $model->id]);
         }
-
         return $this->render('create', [
             'model' => $model,
-            'modelsEducations' => (empty($modelsEducations)) ? [new Education] : $modelsEducations,
         ]);
     }
 
@@ -174,106 +98,11 @@ class UserController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-        $modelsEducations = $model->educations;
-        if ($model->load(Yii::$app->request->post())) {
-
-
-            $oldIDs = ArrayHelper::map($modelsEducations, 'id', 'id');
-            /** @var Education[] $modelsEducations */
-            $modelsEducations = ActiveRecord::createMultiple(Education::classname(), $modelsEducations);
-            Education::loadMultiple($modelsEducations, Yii::$app->request->post());
-            $deletedIDs = array_diff($oldIDs, array_filter(ArrayHelper::map($modelsEducations, 'id', 'id')));
-
-            foreach ($modelsEducations as $index => $education) {
-                $education->image = \yii\web\UploadedFile::getInstance($education, "[{$index}]image");
-            }
-            $model->image = \yii\web\UploadedFile::getInstance($model, "image");
-
-
-
-
-
-            if (Yii::$app->request->isAjax) {
-                Yii::$app->response->format = Response::FORMAT_JSON;
-                    return ArrayHelper::merge(
-                        ActiveForm::validateMultiple($modelsEducations),
-                        ActiveForm::validate($model)
-                    );
-
-            }
-
-
-            $valid = $model->validate();
-            $valid = ActiveRecord::validateMultiple($modelsEducations) && $valid;
-
-
-            if ($valid) {
-                $transaction = \Yii::$app->db->beginTransaction();
-                try {
-                    if(!empty($model->image)){
-                        $media = FileUploadHelper::upload($model->image);
-                        if(!empty($media)){
-
-                            if(!empty($model->media)){
-                                //delete old image from database only from database
-                                $model->media->delete();
-                            }
-
-                            $model->media_id = $media->id;
-                        }
-                    }
-                    if ($flag = $model->save(false)) {
-
-
-                        if (!empty($deletedIDs)) {
-                           $deletedEducations = Education::find()->andWhere(['id'=>$deletedIDs])->all();
-                           foreach ($deletedEducations as $deletedEducation){
-                                   if (!empty($deletedEducation->media)) {
-                                       //delete old image from database only from database
-                                       $deletedEducation->media->delete();
-                                   }
-                               $deletedEducation->delete();
-                           }
-                        }
-
-                        if ($flag) {
-                            foreach ($modelsEducations as $education) {
-                                $education->user_id = $model->id;
-                                if(!empty($education->image)){
-                                    $media = FileUploadHelper::upload($education->image);
-                                    if(!empty($media)){
-                                        if (!empty($education->media)) {
-                                            //delete old image from database only from database
-                                            $education->media->delete();
-                                        }
-                                        $education->media_id = $media->id;
-                                    }
-                                }
-                                if (($flag = $education->save(false)) === false) {
-                                    $transaction->rollBack();
-                                    break;
-                                }
-                            }
-                        }
-
-                    }
-
-                    if ($flag) {
-                        $transaction->commit();
-                        return $this->redirect(['view', 'id' => $model->id]);
-                    }
-
-                } catch (\Exception $e) {
-                    $transaction->rollBack();
-                }
-            }
-
-            //return $this->redirect(['view', 'id' => $model->id]);
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['view', 'id' => $model->id]);
         }
-
         return $this->render('update', [
             'model' => $model,
-            'modelsEducations' => (empty($modelsEducations)) ? [new Education] : $modelsEducations,
         ]);
     }
 
@@ -286,18 +115,9 @@ class UserController extends Controller
     public function actionDelete($id)
     {
         $model = $this->findModel($id);
-        if(!empty($model->media)){
+        if (!empty($model->media)) {
             $model->media->delete();
         }
-        if(!empty($model->educations)){
-            foreach ($model->educations as $education){
-                if(!empty($education->media)){
-                    $education->media->delete();
-                }
-                $education->delete();
-            }
-        }
-
         $model->delete();
         return $this->redirect(['index']);
     }

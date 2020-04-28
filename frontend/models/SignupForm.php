@@ -22,7 +22,7 @@ class SignupForm extends MainUser
     {
         return ArrayHelper::merge(parent::rules(), [
             [['user_type_id'], 'in', 'range' => [UserType::USER]],
-            [['status'], 'default', 'value' => SignupForm::STATUS_ACTIVE],
+            [['is_active'], 'default', 'value' => SignupForm::STATUS_ACTIVE],
             [['password', 'confirm_password'], 'required'],
 
         ]);

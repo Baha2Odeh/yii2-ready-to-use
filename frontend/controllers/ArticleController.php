@@ -18,7 +18,7 @@ class ArticleController extends Controller
 {
 
     public function actionIndex($category=null){
-        $articles = Article::find()->andWhere(['status' => Article::STATUS_ACTIVE]);
+        $articles = Article::find()->andWhere(['is_active' => Article::STATUS_ACTIVE]);
 
         if(!empty($category)){
             $category = Category::findOne(['slug'=>$category]);
@@ -66,7 +66,7 @@ class ArticleController extends Controller
      */
     protected function findModel($id)
     {
-        if (($model = Article::findOne(['id'=>$id,'status'=>Article::STATUS_ACTIVE])) !== null) {
+        if (($model = Article::findOne(['id'=>$id,'is_active'=>Article::STATUS_ACTIVE])) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');

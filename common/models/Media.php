@@ -57,8 +57,8 @@ class Media extends ActiveRecord
             [['type', 'name', 'path', 'extension', 'size'], 'required'],
             [['type', 'name', 'path', 'extension'], 'string'],
             [['size'], 'number'],
-            [['status'],'default','value' => self::STATUS_ACTIVE],
-            [['status', 'created_by', 'updated_by'], 'integer'],
+            [['is_active'],'default','value' => self::STATUS_ACTIVE],
+            [['is_active', 'created_by', 'updated_by'], 'integer'],
 
 
             [['file'],'file','skipOnEmpty' => true,'extensions' => 'jpg,png,gif,mp4,wav','maxSize' => 1024 * 1024 * 10,'tooBig' => Yii::t('app','Max Size Is 10MB')],
@@ -82,7 +82,7 @@ class Media extends ActiveRecord
             'path' => Yii::t('attribute', 'Path'),
             'extension' => Yii::t('attribute', 'Extension'),
             'size' => Yii::t('attribute', 'Size'),
-            'status' => Yii::t('attribute', 'Status'),
+            'is_active' => Yii::t('attribute', 'is_active'),
             'created_at' => Yii::t('attribute', 'Created At'),
             'created_by' => Yii::t('attribute', 'Created By'),
             'updated_at' => Yii::t('attribute', 'Updated At'),

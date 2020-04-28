@@ -5,7 +5,6 @@ use yii\widgets\DetailView;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\User */
-/* @var $educationDataProvider \yii\data\ActiveDataProvider */
 
 $this->title = $model->id;
 $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Users'), 'url' => ['index']];
@@ -46,17 +45,12 @@ $this->params['breadcrumbs'][] = $this->title;
                         'label'=>Yii::t('app','City Name')
                 ],
 
-                'status:boolean',
+                'is_active:boolean',
                 'media_id',
                 'avatar:image',
                 'created_at:datetime',
                 'updated_at:datetime',
             ]
         ]) ?>
-
-
-
-        <?=$this->render('partial/education_list',['model'=>$model,'dataProvider'=>$educationDataProvider])?>
-
     </div>
 </div>

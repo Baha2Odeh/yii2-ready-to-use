@@ -106,7 +106,7 @@ CSS
                 ],
 
                 // 'media_id',
-                'status:boolean',
+                'is_active:boolean',
                 [
                     'attribute' => 'created_at',
                     'filterOptions' => ['style' => 'min-width:200px'],

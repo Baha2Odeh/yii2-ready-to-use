@@ -19,7 +19,7 @@ class UserTypeSearch extends UserType
     public function rules()
     {
         return [
-            [['id', 'status', 'created_by', 'updated_by', 'is_deleted', 'deleted_by'], 'integer'],
+            [['id', 'is_active', 'created_by', 'updated_by', 'is_deleted', 'deleted_by'], 'integer'],
             [['name', 'created_at', 'updated_at', 'deleted_at', 'ip_address', 'user_agent'], 'safe'],
         ];
     }
@@ -62,7 +62,7 @@ class UserTypeSearch extends UserType
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
-            'status' => $this->status,
+            'is_active' => $this->is_active,
 //            'created_at' => $this->created_at,
             'created_by' => $this->created_by,
 //            'updated_at' => $this->updated_at,

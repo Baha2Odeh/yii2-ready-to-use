@@ -58,7 +58,7 @@ class Category extends \common\models\ActiveRecord
     {
         return [
             [['name'], 'required'],
-            [['status'], 'integer'],
+            [['is_active'], 'integer'],
             [['name'], 'string', 'max' => 255],
         ];
     }
@@ -71,7 +71,7 @@ class Category extends \common\models\ActiveRecord
         return [
             'id' => Yii::t('app', 'ID'),
             'name' => Yii::t('app', 'Name'),
-            'status' => Yii::t('app', 'Status'),
+            'is_active' => Yii::t('app', 'Is Active'),
             'created_at' => Yii::t('app', 'Created At'),
             'created_by' => Yii::t('app', 'Created By'),
             'updated_at' => Yii::t('app', 'Updated At'),

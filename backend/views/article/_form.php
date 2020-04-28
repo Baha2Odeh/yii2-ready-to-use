@@ -97,7 +97,7 @@ use yii\widgets\ActiveForm;
 
 
 
-        <?= $form->field($model, 'status')->checkbox() ?>
+        <?= $form->field($model, 'is_active')->checkbox() ?>
 
     </div>
     <div class="box-footer">

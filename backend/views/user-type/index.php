@@ -25,7 +25,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
                 'id',
                 'name',
-                'status:boolean',
+                'is_active:boolean',
                 [
                     'attribute' => 'created_at',
                     'filterOptions' => ['style'=>'min-width:200px'],

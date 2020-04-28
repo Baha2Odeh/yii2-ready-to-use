@@ -16,7 +16,7 @@ class m181202_213733_create_category_article_table extends Migration
         $this->createTable('category', [
             'id' => $this->primaryKey(),
             'name' => $this->string()->notNull(),
-            'status' => $this->tinyInteger(1)->defaultValue(0),
+            'is_active' => $this->tinyInteger(1)->defaultValue(0),
         ]);
 
         $this->createTable('article', [
@@ -26,7 +26,7 @@ class m181202_213733_create_category_article_table extends Migration
             'title' => $this->string()->notNull(),
             'body' => $this->text()->notNull(),
             'media_id' => $this->integer()->null(),
-            'status' => $this->tinyInteger(1)->defaultValue(0),
+            'is_active' => $this->tinyInteger(1)->defaultValue(0),
         ]);
 
 

@@ -32,7 +32,6 @@ use yii\helpers\ArrayHelper;
  * @property string $user_agent
  *
  * @property City[] $cities
- * @property Institution[] $institutions
  * @property User[] $users
  */
 class Country extends \common\models\ActiveRecord
@@ -99,15 +98,6 @@ class Country extends \common\models\ActiveRecord
     {
         return $this->hasMany(City::className(), ['country_id' => 'id']);
     }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getInstitutions()
-    {
-        return $this->hasMany(Institution::className(), ['country_id' => 'id']);
-    }
-
 
     /**
      * @return \yii\db\ActiveQuery

@@ -4,7 +4,6 @@ use yii\helpers\Html;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\User */
-/* @var $modelsEducations \common\models\Education[] */
 
 $this->title = Yii::t('app', 'Update {modelClass}: ', [
     'modelClass' => 'User',
@@ -16,8 +15,7 @@ $this->params['breadcrumbs'][] = Yii::t('app', 'Update');
 <div class="user-update">
 
     <?= $this->render('_form', [
-        'model' => $model,
-        'modelsEducations' => $modelsEducations,
+        'model' => $model
     ]) ?>
 
 </div>

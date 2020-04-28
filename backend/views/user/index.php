@@ -184,7 +184,7 @@ JS
                 // 'access_token',
 
                 // 'city_id',
-                 'status:boolean',
+                 'is_active:boolean',
                 // 'media_id',
                 // 'created_at',
                 // 'created_by',

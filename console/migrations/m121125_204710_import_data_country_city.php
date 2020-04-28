@@ -34,22 +34,6 @@ class m121125_204710_import_data_country_city extends Migration
 
 
 
-        // creates index for column `country_id`
-        $this->createIndex(
-            'institution_ibfk_1',
-            '{{%institution}}',
-            'country_id'
-        );
-
-        // add foreign key for table `country`
-        $this->addForeignKey(
-            'institution_ibfk_1',
-            '{{%institution}}',
-            'country_id',
-            '{{%country}}',
-            'id',
-            'CASCADE'
-        );
 
 
     }
@@ -60,29 +44,7 @@ class m121125_204710_import_data_country_city extends Migration
     public function down()
     {
 
-        // drops foreign key for table `country`
-        $this->dropForeignKey(
-            'institution_ibfk_1',
-            '{{%institution}}'
-        );
 
-        // drops index for column `country_id`
-        $this->dropIndex(
-            'institution_ibfk_1',
-            '{{%institution}}'
-        );
-
-        // drops foreign key for table `languages`
-        $this->dropForeignKey(
-            'institution_ibfk_2',
-            '{{%institution}}'
-        );
-
-        // drops index for column `language_id`
-        $this->dropIndex(
-            'institution_ibfk_2',
-            '{{%institution}}'
-        );
 
         // drops foreign key for table `country`
         $this->dropForeignKey(

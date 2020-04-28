@@ -27,7 +27,7 @@ class UserSearch extends User
     public function rules()
     {
         return [
-            [['id', 'user_type_id', 'country_id', 'city_id', 'status', 'media_id', 'created_by', 'updated_by', 'is_deleted', 'deleted_by'], 'integer'],
+            [['id', 'user_type_id', 'country_id', 'city_id', 'is_active', 'media_id', 'created_by', 'updated_by', 'is_deleted', 'deleted_by'], 'integer'],
             [['first_name', 'last_name', 'gender', 'dob', 'phone_number', 'email', 'auth_key', 'password_hash', 'password_reset_token', 'access_token', 'created_at', 'updated_at', 'deleted_at', 'ip_address', 'user_agent'], 'safe'],
         ];
     }
@@ -74,7 +74,7 @@ class UserSearch extends User
             'dob' => $this->dob,
             'country_id' => $this->country_id,
             'city_id' => $this->city_id,
-            'status' => $this->status,
+            'is_active' => $this->is_active,
             'media_id' => $this->media_id,
 //            'created_at' => $this->created_at,
             'created_by' => $this->created_by,

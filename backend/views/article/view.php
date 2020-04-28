@@ -42,7 +42,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'body:html',
                 'media_id',
                 'avatar:image',
-                'status:boolean',
+                'is_active:boolean',
                 'created_at:datetime',
                 'updated_at:datetime',
             ],

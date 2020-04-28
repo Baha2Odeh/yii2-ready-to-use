@@ -12,7 +12,7 @@ class m181203_184945_add_views_to_article extends Migration
     */
     public function safeUp()
     {
-        $this->addColumn('article','views',$this->integer()->defaultValue(0)->after('status'));
+        $this->addColumn('article','views',$this->integer()->defaultValue(0)->after('is_active'));
     }
 
     /**

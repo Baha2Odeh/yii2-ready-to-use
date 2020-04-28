@@ -60,11 +60,12 @@ class SiteController extends Controller
     public function actionIndex()
     {
 
-        $data = DashboardModel::getDashboard();
+//        $data = DashboardModel::getDashboard();
 
 
+        return $this->render('index', [
 
-        return $this->render('index', $data);
+        ]);
     }
 
     /**

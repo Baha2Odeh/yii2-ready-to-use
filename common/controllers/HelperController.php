@@ -11,7 +11,6 @@ namespace common\controllers;
 
 use common\components\StringHelper;
 use common\models\City;
-use common\models\Institution;
 use common\models\User;
 use common\models\UserType;
 use Yii;
@@ -29,21 +28,6 @@ class HelperController extends Controller
             ->indexBy('id')
             ->column();
         return $this->asJson($cites);
-    }
-    public function actionInstitution($q = null, $id = null){
-        $out = ['results' => ['id' => '', 'text' => '']];
-        if (!is_null($q)) {
-           $data =  Institution::find()->select(['id','name text'])
-                ->andWhere(['like','name',$q])
-                ->limit(20)
-                ->asArray()
-                ->all();
-            $out['results'] = $data;
-        }
-        elseif ($id > 0) {
-            $out['results'] = ['id' => $id, 'text' => !empty(Institution::find()->andWhere(['id'=>$id])->one()->name) ? Institution::find()->andWhere(['id'=>$id])->one()->name : ''];
-        }
-        return $this->asJson($out);
     }
     public function actionUser($q = null, $id = null){
         $user_type_id = Yii::$app->request->get('user_type_id',null);

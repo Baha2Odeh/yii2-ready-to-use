@@ -74,7 +74,7 @@ class Article extends \common\models\ActiveRecord
     {
         return [
             [['category_id', 'title', 'body', 'description'], 'required'],
-            [['category_id', 'user_id', 'media_id', 'status', 'views'], 'integer'],
+            [['category_id', 'user_id', 'media_id', 'is_active', 'views'], 'integer'],
             [['body'], 'string'],
             [['title'], 'string', 'max' => 255],
             [['description'], 'string', 'max' => 500],
@@ -101,7 +101,7 @@ class Article extends \common\models\ActiveRecord
             'description' => Yii::t('app', 'Description'),
             'body' => Yii::t('app', 'Body'),
             'media_id' => Yii::t('app', 'Media ID'),
-            'status' => Yii::t('app', 'Status'),
+            'is_active' => Yii::t('app', 'Is Active'),
             'views' => Yii::t('app', 'Views'),
             'created_at' => Yii::t('app', 'Created At'),
             'created_by' => Yii::t('app', 'Created By'),

@@ -12,9 +12,9 @@ class m181203_203236_insert_basic_records extends Migration
      */
     public function safeUp()
     {
-        $this->batchInsert('user_type', ['name'], [
-            ['Admin'],
-            ['User'],
+        $this->batchInsert('user_type', ['name','is_active'], [
+            ['Admin',1],
+            ['User',1],
         ]);
         $user = new \common\models\User();
         $user->first_name = 'Bahaa';

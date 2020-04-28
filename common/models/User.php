@@ -46,7 +46,6 @@ use yii\web\UploadedFile;
  * @property-read string $avatar
  *
  * @property UserType $userType
- * @property Education[] $educations
  * @property City $city
  * @property Country $country
  * @property Media $media
@@ -109,7 +108,7 @@ class User extends ActiveRecord implements IdentityInterface
     public function rules()
     {
         return [
-            [['user_type_id', 'country_id', 'city_id', 'status', 'media_id'], 'integer'],
+            [['user_type_id', 'country_id', 'city_id', 'is_active', 'media_id'], 'integer'],
             [['user_type_id','first_name','last_name'], 'required'],
             [['first_name', 'last_name', 'phone_number', 'email', 'password_hash', 'password_reset_token'], 'string', 'max' => 255],
             [['auth_key'], 'string', 'max' => 32],
@@ -129,8 +128,8 @@ class User extends ActiveRecord implements IdentityInterface
             ['gender', 'in', 'range' => [self::GENDER_MALE, self::GENDER_FEMALE]],
 
 
-            ['status', 'default', 'value' => self::STATUS_ACTIVE],
-            ['status', 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_INACTIVE]],
+            ['is_active', 'default', 'value' => self::STATUS_ACTIVE],
+            ['is_active', 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_INACTIVE]],
             ['email', 'email'],
 
             [['city_id'], 'exist', 'skipOnError' => true, 'targetClass' => City::className(), 'targetAttribute' => ['city_id' => 'id']],
@@ -176,7 +175,7 @@ class User extends ActiveRecord implements IdentityInterface
             'access_token' => Yii::t('app', 'Access Token'),
             'country_id' => Yii::t('app', 'Country ID'),
             'city_id' => Yii::t('app', 'City ID'),
-            'status' => Yii::t('app', 'Status'),
+            'is_active' => Yii::t('app', 'Is Active'),
             'media_id' => Yii::t('app', 'Media ID'),
             'created_at' => Yii::t('app', 'Created At'),
             'created_by' => Yii::t('app', 'Created By'),
@@ -199,14 +198,6 @@ class User extends ActiveRecord implements IdentityInterface
     public function getUserType()
     {
         return $this->hasOne(UserType::className(), ['id' => 'user_type_id']);
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getEducations()
-    {
-        return $this->hasMany(Education::className(), ['user_id' => 'id']);
     }
 
     /**
@@ -279,7 +270,7 @@ class User extends ActiveRecord implements IdentityInterface
      */
     public static function findIdentity($id)
     {
-        return static::findOne(['id' => $id, 'status' => self::STATUS_ACTIVE]);
+        return static::findOne(['id' => $id, 'is_active' => self::STATUS_ACTIVE]);
     }
 
     /**
@@ -287,7 +278,7 @@ class User extends ActiveRecord implements IdentityInterface
      */
     public static function findIdentityByAccessToken($token, $type = null)
     {
-        return static::findOne(['access_token' => $token, 'status' => self::STATUS_ACTIVE]);
+        return static::findOne(['access_token' => $token, 'is_active' => self::STATUS_ACTIVE]);
     }
 
     /**
@@ -306,7 +297,7 @@ class User extends ActiveRecord implements IdentityInterface
         return static::find()
             ->andWhere([
                 'email' => $email,
-                'status' => self::STATUS_ACTIVE
+                'is_active' => self::STATUS_ACTIVE
             ])->andFilterWhere(['user_type_id' => $user_type_id])
             ->one();
     }
@@ -327,7 +318,7 @@ class User extends ActiveRecord implements IdentityInterface
         return static::find()
             ->andWhere([
                 'phone_number' => $formatedPhoneNumber,
-                'status' => self::STATUS_ACTIVE
+                'is_active' => self::STATUS_ACTIVE
             ])->andFilterWhere(['user_type_id' => $user_type_id])
             ->one();
     }
@@ -346,7 +337,7 @@ class User extends ActiveRecord implements IdentityInterface
 
         return static::findOne([
             'password_reset_token' => $token,
-            'status' => self::STATUS_ACTIVE,
+            'is_active' => self::STATUS_ACTIVE,
         ]);
     }
 

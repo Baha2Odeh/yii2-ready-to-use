@@ -35,19 +35,6 @@
                             ['label' => Yii::t('app', 'Create User'), 'icon' => 'plus', 'url' => ['/user/create']],
                         ]
                     ],
-
-
-                    [
-                        'label' => Yii::t('app', 'Institution'),
-                        'visible' => Yii::$app->user->can('manageInstitution'),
-                        'icon' => 'university',
-                        'url' => '#',
-                        'items' => [
-                            ['label' => Yii::t('app', 'Institution list'), 'icon' => 'university', 'url' => ['/institution/index']],
-                            ['label' => Yii::t('app', 'Create Institution'), 'icon' => 'plus', 'url' => ['/institution/create']],
-                        ]
-                    ],
-
                     [
                         'label' => Yii::t('app', 'Category'),
                         'visible' => Yii::$app->user->can('manageCategory'),
