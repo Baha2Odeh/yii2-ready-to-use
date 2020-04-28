@@ -26,6 +26,8 @@ use yii\web\UploadedFile;
  * @property User $createdBy
  * @property User $updatedBy
  * @property User $deletedBy
+ *
+ * @property-read string $thumb
  */
 class Media extends ActiveRecord
 {

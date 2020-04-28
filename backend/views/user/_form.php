@@ -48,7 +48,7 @@ JS
     <?php $form = ActiveForm::begin([
         'id' => 'user-form',
         'enableClientValidation' => true,
-        'enableAjaxValidation' => true,
+        'enableAjaxValidation' => false,
         'validateOnChange' => true,
         'validateOnBlur' => false,
         'options' => [
@@ -144,14 +144,12 @@ JS
         <div class="row">
             <div class="col-md-6">
                 <?php
-                $modelImage = !empty($model->media) ? $model->media : false;
                 $initialPreview = [];
-                if ($modelImage) {
-                    $pathImg = $modelImage->getThumb();
-                    $initialPreview[] = Html::img($pathImg, ['class' => 'file-preview-image']);
+                if (!empty($model->media)) {
+                    $initialPreview[] = Html::img($model->media->thumb, ['class' => 'file-preview-image']);
                 }
                 ?>
-                <?= $form->field($model, "image")->label(false)->widget(FileInput::classname(), [
+                <?= $form->field($model, 'image')->label(false)->widget(FileInput::classname(), [
                     'options' => [
                         'multiple' => false,
                         'accept' => 'image/*',

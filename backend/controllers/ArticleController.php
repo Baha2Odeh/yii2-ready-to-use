@@ -2,13 +2,10 @@
 
 namespace backend\controllers;
 
-use common\components\FileUploadHelper;
 use Yii;
 use common\models\Article;
 use common\models\search\ArticleSearch;
-use backend\controllers\Controller;
 use yii\web\NotFoundHttpException;
-use yii\filters\VerbFilter;
 
 /**
  * ArticleController implements the CRUD actions for Article model.
@@ -21,11 +18,12 @@ class ArticleController extends Controller
             'delete' => ['POST'],
         ];
     }
+
     public function rules()
     {
         return [
             [
-                'actions' => ['index','view','create','update','delete'],
+                'actions' => ['index', 'view', 'create', 'update', 'delete'],
                 'allow' => true,
                 'roles' => ['manageArticle'],
             ],
@@ -68,22 +66,8 @@ class ArticleController extends Controller
     {
         $model = new Article();
 
-        if ($model->load(Yii::$app->request->post()) ) {
-
-            $model->image = \yii\web\UploadedFile::getInstance($model, "image");
-            if($model->validate()){
-                if(!empty($model->image)){
-                    $media = FileUploadHelper::upload($model->image);
-                    if(!empty($media)){
-                        $model->media_id = $media->id;
-                    }
-                }
-
-                if($model->save(false)){
-                    return $this->redirect(['view', 'id' => $model->id]);
-                }
-            }
-
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['view', 'id' => $model->id]);
         }
 
         return $this->render('create', [
@@ -100,30 +84,8 @@ class ArticleController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-
-
-        if ($model->load(Yii::$app->request->post()) ) {
-
-            $model->image = \yii\web\UploadedFile::getInstance($model, "image");
-            if($model->validate()){
-                if(!empty($model->image)){
-                    $media = FileUploadHelper::upload($model->image);
-                    if(!empty($media)){
-
-                        if(!empty($model->media)){
-                            //delete old image from database only from database
-                            $model->media->delete();
-                        }
-
-                        $model->media_id = $media->id;
-                    }
-                }
-
-                if($model->save(false)){
-                    return $this->redirect(['view', 'id' => $model->id]);
-                }
-            }
-
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['view', 'id' => $model->id]);
         }
         return $this->render('update', [
             'model' => $model,

@@ -2,10 +2,12 @@
 
 namespace common\models;
 
+use Baha2Odeh\EasyFileUpload\EasyFileUploadBehavior;
 use borales\extensions\phoneInput\PhoneInputBehavior;
 use borales\extensions\phoneInput\PhoneInputValidator;
 use codeonyii\yii2validators\AtLeastValidator;
 use common\behaviors\SluggableBehavior;
+use common\components\FileUploadHelper;
 use common\components\Helper;
 use Yii;
 use yii\helpers\ArrayHelper;
@@ -51,8 +53,6 @@ use yii\web\UploadedFile;
  * @property Media $media
  * @property Article[] $articles
  * @property Auth[] $auths
-
-
  */
 class User extends ActiveRecord implements IdentityInterface
 {
@@ -70,10 +70,6 @@ class User extends ActiveRecord implements IdentityInterface
     public $password;
     public $confirm_password;
 
-
-    /** @var UploadedFile */
-    public $image;
-
     /**
      * {@inheritdoc}
      */
@@ -89,14 +85,23 @@ class User extends ActiveRecord implements IdentityInterface
             [
                 'class' => PhoneInputBehavior::className(),
                 'countryCodeAttribute' => 'phone_country_code',
-                'phoneAttribute' => 'phone_number'
+                'phoneAttribute' => 'phone_number',
             ],
             'slug' => [
                 'class' => SluggableBehavior::className(),
-                'attribute' => ['first_name','last_name'],
+                'attribute' => ['first_name', 'last_name'],
                 'slugAttribute' => 'slug',
                 'ensureUnique' => true,
                 // 'skipOnEmpty' => true
+            ],
+            [
+                'class' => EasyFileUploadBehavior::className(),
+                'relations' => [
+                    'image' => 'media',
+                ],
+                'uploadCallBack' => function ($relationName, UploadedFile $uploadedFile) {
+                    return FileUploadHelper::upload($uploadedFile);
+                },
             ],
 
         ]);
@@ -109,10 +114,10 @@ class User extends ActiveRecord implements IdentityInterface
     {
         return [
             [['user_type_id', 'country_id', 'city_id', 'is_active', 'media_id'], 'integer'],
-            [['user_type_id','first_name','last_name'], 'required'],
+            [['user_type_id', 'first_name', 'last_name'], 'required'],
             [['first_name', 'last_name', 'phone_number', 'email', 'password_hash', 'password_reset_token'], 'string', 'max' => 255],
             [['auth_key'], 'string', 'max' => 32],
-            [['dob'], 'compare','type' => 'date','compareValue' => date('Y-m-d'),'operator' => '<='],
+            [['dob'], 'compare', 'type' => 'date', 'compareValue' => date('Y-m-d'), 'operator' => '<='],
             [['dob'], 'date', 'format' => 'php:Y-m-d'],
             [['access_token'], 'string', 'max' => 80],
             [['phone_number'], PhoneInputValidator::className()],
@@ -141,16 +146,16 @@ class User extends ActiveRecord implements IdentityInterface
 
             [['password', 'confirm_password'], 'required', 'on' => 'create'],
             [['password', 'confirm_password'], 'string', 'min' => 6],
-            [['confirm_password'],'required','when' => function($model){
-                    return !empty($model->password);
-            },'whenClient' => "function (attribute, value){
+            [['confirm_password'], 'required', 'when' => function ($model) {
+                return !empty($model->password);
+            }, 'whenClient' => "function (attribute, value){
                 return $('#user-password').val() != '';
             }"],
             ['confirm_password', 'compare', 'compareAttribute' => 'password', 'operator' => '=='],
-            [['email','phone_number'],'default','value' => null],
+            [['email', 'phone_number'], 'default', 'value' => null],
 
 
-            [['image'],'file','skipOnEmpty' => true,'extensions' => 'jpg,png,gif,mp4,wav','maxSize' => 1024 * 1024 * 10,'tooBig' => Yii::t('app','Max Size Is 10MB')],
+            [['image'], 'file', 'skipOnEmpty' => true, 'extensions' => 'jpg,png,gif,mp4,wav', 'maxSize' => 1024 * 1024 * 10, 'tooBig' => Yii::t('app', 'Max Size Is 10MB')],
 
         ];
     }
@@ -241,8 +246,6 @@ class User extends ActiveRecord implements IdentityInterface
     }
 
 
-
-
     public function getAvatar($size = ImagePreset::TYPE_THUMB)
     {
         if (!empty($this->media)) {
@@ -297,7 +300,7 @@ class User extends ActiveRecord implements IdentityInterface
         return static::find()
             ->andWhere([
                 'email' => $email,
-                'is_active' => self::STATUS_ACTIVE
+                'is_active' => self::STATUS_ACTIVE,
             ])->andFilterWhere(['user_type_id' => $user_type_id])
             ->one();
     }
@@ -318,7 +321,7 @@ class User extends ActiveRecord implements IdentityInterface
         return static::find()
             ->andWhere([
                 'phone_number' => $formatedPhoneNumber,
-                'is_active' => self::STATUS_ACTIVE
+                'is_active' => self::STATUS_ACTIVE,
             ])->andFilterWhere(['user_type_id' => $user_type_id])
             ->one();
     }

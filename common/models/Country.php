@@ -133,6 +133,6 @@ class Country extends \common\models\ActiveRecord
      */
     public static function getCountryList($language='en'){
         $list = self::getCachedList(true);
-        return ArrayHelper::map($list,'id',$language == 'en' ? 'name' : 'arabic_name');
+        return ArrayHelper::map($list,'id','name');
     }
 }

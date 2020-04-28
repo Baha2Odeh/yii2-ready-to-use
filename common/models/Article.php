@@ -2,7 +2,9 @@
 
 namespace common\models;
 
+use Baha2Odeh\EasyFileUpload\EasyFileUploadBehavior;
 use common\behaviors\SluggableBehavior;
+use common\components\FileUploadHelper;
 use Yii;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Url;
@@ -36,14 +38,10 @@ use yii\web\UploadedFile;
  * @property User $user
  * @property Media $media
  */
-class Article extends \common\models\ActiveRecord
+class Article extends ActiveRecord
 {
     const STATUS_INACTIVE = 0;
     const STATUS_ACTIVE = 1;
-
-    /** @var UploadedFile */
-    public $image;
-
 
     public function behaviors()
     {
@@ -54,6 +52,15 @@ class Article extends \common\models\ActiveRecord
                 'slugAttribute' => 'slug',
                 'ensureUnique' => true,
                 // 'skipOnEmpty' => true
+            ],
+            [
+                'class' => EasyFileUploadBehavior::className(),
+                'relations' => [
+                    'image' => 'media',
+                ],
+                'uploadCallBack' => function ($relationName, UploadedFile $uploadedFile) {
+                    return FileUploadHelper::upload($uploadedFile);
+                },
             ],
 
         ]);
@@ -144,13 +151,16 @@ class Article extends \common\models\ActiveRecord
         if (!empty($this->media)) {
             return $this->media->getThumb($size);
         }
-        return Yii::$app->imageCache->url('article_placeholder.jpg',$size);
+        return Yii::$app->imageCache->url('article_placeholder.jpg', $size);
     }
 
-    public function getRoute(){
-        return ['article/view','id'=>$this->id,'slug'=>$this->slug,'category'=>$this->category->slug];
+    public function getRoute()
+    {
+        return ['article/view', 'id' => $this->id, 'slug' => $this->slug, 'category' => $this->category->slug];
     }
-    public function getUrl(){
+
+    public function getUrl()
+    {
         return Url::to($this->getRoute());
     }
 }
