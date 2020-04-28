@@ -52,6 +52,7 @@ return [
         ],
         'createSymlink' => [
             'frontend/web/cdn' => 'cdn',
+            'frontend/web/admin' => 'backend/web',
             'backend/web/cdn' => 'cdn',
             'api/web/cdn' => 'cdn',
         ]
@@ -79,6 +80,7 @@ return [
         ],
         'createSymlink' => [
             'frontend/web/cdn' => 'cdn',
+            'frontend/web/admin' => 'backend/web',
             'backend/web/cdn' => 'cdn',
             'api/web/cdn' => 'cdn',
         ]

@@ -3,14 +3,14 @@ return [
     'components' => [
         'db' => [
             'class' => 'yii\db\Connection',
-            'dsn' => 'mysql:host=127.0.0.1;dbname=app',
+            'dsn' => 'mysql:host=127.0.0.1;dbname=mahllat_store',
             'username' => 'root',
             'password' => 'root',
             'charset' => 'utf8',
         ],
         'mongodb' => [
             'class' => '\yii\mongodb\Connection',
-            'dsn' => 'mongodb://127.0.0.1:27017/app',
+            'dsn' => 'mongodb://127.0.0.1:27017/mahllat_store',
 //            'options' => [
 //                "username" => "Username",
 //                "password" => "Password"

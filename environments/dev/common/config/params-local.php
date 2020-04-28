@@ -1,10 +1,10 @@
 <?php
 return [
     'urls' => [
-        'backend' => 'http://back.app.local/',
-        'frontend' => 'http://app.local/',
-        'api' => 'http://api.app.local/',
-        'cdn' => 'http://app.local/cdn/',
+        'backend' => 'http://mahllat-store.test/admin/',
+        'frontend' => 'http://mahllat-store.test/',
+        'api' => 'http://mahllat-store.test/',
+        'cdn' => 'http://mahllat-store.test/cdn/',
     ],
     'ffmpeg' => '/usr/bin/ffmpeg',
     'BEANSTALK' => [
