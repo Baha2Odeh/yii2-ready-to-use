@@ -285,12 +285,12 @@
             "version": "v3.5.2",
             "source": {
                 "type": "git",
-                "url": "https://github.com/fancyapps/fancybox.git",
+                "url": "git@github.com:fancyapps/fancyBox.git",
                 "reference": "920b3e4dd54468ff9a0e4e40f35c533f21b3e1d1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/fancyapps/fancybox/zipball/920b3e4dd54468ff9a0e4e40f35c533f21b3e1d1",
+                "url": "https://api.github.com/repos/fancyapps/fancyBox/zipball/920b3e4dd54468ff9a0e4e40f35c533f21b3e1d1",
                 "reference": "920b3e4dd54468ff9a0e4e40f35c533f21b3e1d1"
             },
             "require": {
@@ -327,12 +327,12 @@
             "version": "v12.4.0",
             "source": {
                 "type": "git",
-                "url": "git@github.com:Bluefieldscom/intl-tel-input.git",
+                "url": "https://github.com/jackocnr/intl-tel-input.git",
                 "reference": "2afde58af3d7db953ba505946a5aac3c3176ed0b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Bluefieldscom/intl-tel-input/zipball/2afde58af3d7db953ba505946a5aac3c3176ed0b",
+                "url": "https://api.github.com/repos/jackocnr/intl-tel-input/zipball/2afde58af3d7db953ba505946a5aac3c3176ed0b",
                 "reference": "2afde58af3d7db953ba505946a5aac3c3176ed0b"
             },
             "require": {
@@ -345,7 +345,7 @@
             "version": "3.4.1",
             "source": {
                 "type": "git",
-                "url": "https://github.com/jquery/jquery-dist.git",
+                "url": "git@github.com:jquery/jquery-dist.git",
                 "reference": "15bc73803f76bc53b654b9fdbbbc096f56d7c03d"
             },
             "dist": {
@@ -378,7 +378,7 @@
             "version": "v1.3.2",
             "source": {
                 "type": "git",
-                "url": "https://github.com/bestiejs/punycode.js.git",
+                "url": "git@github.com:bestiejs/punycode.js.git",
                 "reference": "38c8d3131a82567bfef18da09f7f4db68c84f8a3"
             },
             "dist": {
@@ -2693,12 +2693,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/mdmsoft/yii2-admin.git",
-                "reference": "00f76d2f9747daaa6ed01816197e624b95aef168"
+                "reference": "10e526fbcf6350ed4cc9ba6298f887d611685367"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/mdmsoft/yii2-admin/zipball/00f76d2f9747daaa6ed01816197e624b95aef168",
-                "reference": "00f76d2f9747daaa6ed01816197e624b95aef168",
+                "url": "https://api.github.com/repos/mdmsoft/yii2-admin/zipball/10e526fbcf6350ed4cc9ba6298f887d611685367",
+                "reference": "10e526fbcf6350ed4cc9ba6298f887d611685367",
                 "shasum": ""
             },
             "require": {
@@ -2743,7 +2743,7 @@
                 "rbac",
                 "yii"
             ],
-            "time": "2020-04-21T13:19:56+00:00"
+            "time": "2020-12-31T06:48:57+00:00"
         },
         {
             "name": "mootensai/yii2-relation-trait",
@@ -4060,16 +4060,16 @@
         },
         {
             "name": "tinymce/tinymce",
-            "version": "5.2.2",
+            "version": "5.10.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/tinymce/tinymce-dist.git",
-                "reference": "a9e4928aac63b18db3bc670661f8661133c3c205"
+                "reference": "dbd8fefb0bbe96ed15f9af4518b078ae2c20e020"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/tinymce/tinymce-dist/zipball/a9e4928aac63b18db3bc670661f8661133c3c205",
-                "reference": "a9e4928aac63b18db3bc670661f8661133c3c205",
+                "url": "https://api.github.com/repos/tinymce/tinymce-dist/zipball/dbd8fefb0bbe96ed15f9af4518b078ae2c20e020",
+                "reference": "dbd8fefb0bbe96ed15f9af4518b078ae2c20e020",
                 "shasum": ""
             },
             "type": "component",
@@ -4078,13 +4078,15 @@
                     "scripts": [
                         "tinymce.js",
                         "plugins/*/plugin.js",
-                        "themes/*/theme.js"
+                        "themes/*/theme.js",
+                        "themes/*/icons.js"
                     ],
                     "files": [
                         "tinymce.min.js",
                         "plugins/*/plugin.min.js",
                         "themes/*/theme.min.js",
-                        "skins/**"
+                        "skins/**",
+                        "icons/*/icons.min.js"
                     ]
                 }
             },
@@ -4093,16 +4095,22 @@
                 "LGPL-2.1-only"
             ],
             "description": "Web based JavaScript HTML WYSIWYG editor control.",
-            "homepage": "http://www.tinymce.com",
+            "homepage": "https://www.tiny.cloud/",
             "keywords": [
-                "editor",
+                "contenteditable",
+                "editing",
                 "html",
                 "javascript",
+                "rich editor",
+                "rich text",
+                "rich text editor",
                 "richtext",
+                "rte",
+                "text",
                 "tinymce",
                 "wysiwyg"
             ],
-            "time": "2020-04-23T02:47:51+00:00"
+            "time": "2021-10-11T03:18:15+00:00"
         },
         {
             "name": "twilio/sdk",
@@ -5332,6 +5340,7 @@
                 "faker",
                 "fixtures"
             ],
+            "abandoned": true,
             "time": "2019-12-12T13:22:17+00:00"
         },
         {
@@ -6054,6 +6063,7 @@
             "keywords": [
                 "tokenizer"
             ],
+            "abandoned": true,
             "time": "2019-09-17T06:23:10+00:00"
         },
         {
@@ -7192,12 +7202,12 @@
             "version": "1.8.0",
             "source": {
                 "type": "git",
-                "url": "https://github.com/webmozart/assert.git",
+                "url": "https://github.com/webmozarts/assert.git",
                 "reference": "ab2cb0b3b559010b75981b1bdce728da3ee90ad6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/webmozart/assert/zipball/ab2cb0b3b559010b75981b1bdce728da3ee90ad6",
+                "url": "https://api.github.com/repos/webmozarts/assert/zipball/ab2cb0b3b559010b75981b1bdce728da3ee90ad6",
                 "reference": "ab2cb0b3b559010b75981b1bdce728da3ee90ad6",
                 "shasum": ""
             },
