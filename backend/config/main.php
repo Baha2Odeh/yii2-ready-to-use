@@ -9,6 +9,8 @@ $params = array_merge(
 return [
     'id' => 'app-backend',
     'name' => 'app',
+    'language' => 'en',
+    'sourceLanguage' => 'en',
     'basePath' => dirname(__DIR__),
     'controllerNamespace' => 'backend\controllers',
     'bootstrap' => ['log'],
@@ -75,6 +77,14 @@ return [
         'errorHandler' => [
             'errorAction' => 'site/error',
         ],
+
+        // 'view' => [
+        //     'theme' => [
+        //         'pathMap' => [
+        //            '@app/views' => '@vendor/hail812/yii2-adminlte3/src/views'
+        //         ],
+        //     ],
+        // ],
 
         'urlManager' => [
             'enablePrettyUrl' => true,

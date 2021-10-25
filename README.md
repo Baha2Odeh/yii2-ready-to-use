@@ -33,6 +33,15 @@ Documentation is at [docs/guide/README.md](docs/guide/README.md).
 [![Total Downloads](https://img.shields.io/packagist/dt/yiisoft/yii2-app-advanced.svg)](https://packagist.org/packages/yiisoft/yii2-app-advanced)
 [![Build Status](https://travis-ci.org/yiisoft/yii2-app-advanced.svg?branch=master)](https://travis-ci.org/yiisoft/yii2-app-advanced)
 
+
+# Docker Commands
+first of all, you need to copy all statment from ```docker-compose.yml``` and then
+page it to ```docker-compose-local.yml``` and change your custom configuration
+- ```docker-compose -f docker-compose-local.yml build```
+- ```docker-compose -f docker-compose-local.yml up -d```
+- ```docker-compose -f docker-compose-local.yml exec backend php init```
+- ```docker-compose -f docker-compose-local.yml exec backend php yii migrate```
+
 DIRECTORY STRUCTURE
 -------------------
 

@@ -10,14 +10,10 @@ return [
     'id' => 'app-frontend',
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
+    'language' => 'en',
+    'sourceLanguage' => 'en',
     'controllerNamespace' => 'frontend\controllers',
     'components' => [
-        'reCaptcha' => [
-            'name' => 'reCaptcha',
-            'class' => 'himiklab\yii2\recaptcha\ReCaptcha',
-            'siteKey' => '6Le9WoAUAAAAAHaTtKqnBmxuYW8DHTfAU2v4v5iL',
-            'secret' => '6Le9WoAUAAAAALQ_0w2vDeDxn1zGBYW29SGYKmsW',
-        ],
         'request' => [
             'csrfParam' => '_csrf-frontend',
             'ipHeaders' => [
@@ -53,7 +49,6 @@ return [
             'errorAction' => 'site/error',
         ],
         'urlManager' => [
-            'class' => 'common\components\UrlManager',
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
