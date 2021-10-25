@@ -18,9 +18,9 @@ class m181203_203236_insert_basic_records extends Migration
             ['User',1],
         ]);
         $user = new \common\models\User();
-        $user->first_name = 'Mohammad';
-        $user->last_name = 'Mousa';
-        $user->email = 'mohammad.riad@gmail.com';
+        $user->first_name = 'Super';
+        $user->last_name = 'Admin';
+        $user->email = 'superadmin@yiieasyouse.com';
         $user->gender = \common\models\User::GENDER_MALE;
         $user->dob = '1995-09-16';
         $user->country_id = \common\models\Country::JORDAN;

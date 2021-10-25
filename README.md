@@ -37,6 +37,7 @@ Documentation is at [docs/guide/README.md](docs/guide/README.md).
 # Docker Commands
 first of all, you need to copy all statment from ```docker-compose.yml``` and then
 paste it to ```docker-compose-local.yml``` and change your custom configuration (Make sure its in ignore files)
+- ```composer install```
 - ```docker-compose -f docker-compose-local.yml build```
 - ```docker-compose -f docker-compose-local.yml up -d```
 - ```docker-compose -f docker-compose-local.yml exec backend php init```
