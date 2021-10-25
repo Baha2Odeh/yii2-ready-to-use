@@ -53,8 +53,8 @@ return [
             'transport' => [
                 'class' => 'Swift_SmtpTransport',
                 'host' => 'smtp.gmail.com',  // e.g. smtp.mandrillapp.com or smtp.gmail.com
-                'username' => 'mohammad.riad@gmail.com',
-                'password' => 'aawqkwhprewpqmqs',
+                'username' => 'yii2Test@yii2Test.com',
+                'password' => 'password',
                 'port' => '587', // Port 25 is a very common port too
                 'encryption' => 'tls',
             ],
