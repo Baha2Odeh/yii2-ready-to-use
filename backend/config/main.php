@@ -17,11 +17,6 @@ return [
     'modules' => [
         'gridview' =>  [
             'class' => '\kartik\grid\Module'
-            // enter optional module parameters below - only if you need to
-            // use your own export download action or custom translation
-            // message source
-            // 'downloadAction' => 'gridview/export/download',
-            // 'i18n' => []
         ],
         'i18n' => [
             'class' => 'common\lib\i18nModule\Module',
@@ -62,7 +57,6 @@ return [
             'identityCookie' => ['name' => '_identity-backend', 'httpOnly' => true],
         ],
         'session' => [
-            // this is the name of the session cookie used for login on the backend
             'name' => 'advanced-backend',
         ],
         'log' => [
@@ -78,19 +72,10 @@ return [
             'errorAction' => 'site/error',
         ],
 
-        // 'view' => [
-        //     'theme' => [
-        //         'pathMap' => [
-        //            '@app/views' => '@vendor/hail812/yii2-adminlte3/src/views'
-        //         ],
-        //     ],
-        // ],
-
         'urlManager' => [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
-                'cdn/cache/<size:\w+>/<path:.+>' => 'image-resize/index',
                 '<controller:\w+>/<id:\d+>' => '<controller>/view',
                 '<controller:\w+>/<action:\w+>/<id:\d+>' => '<controller>/<action>',
                 '<controller:\w+>/<action:\w+>' => '<controller>/<action>',

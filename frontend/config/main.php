@@ -33,7 +33,6 @@ return [
             'identityCookie' => ['name' => '_identity-frontend', 'httpOnly' => true],
         ],
         'session' => [
-            // this is the name of the session cookie used for login on the frontend
             'name' => 'advanced-frontend',
         ],
         'log' => [
@@ -52,6 +51,10 @@ return [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
+                'article/<category>/<id:\d+>-<slug>' => 'article/view',
+                'article/<id:\d+>' => 'article/view',
+                'article/<category>' => 'article/index',
+                'article' => 'article/index',
                 'cdn/cache/<size:\w+>/<path:.+>' => 'image-resize/index',
                 '<controller:\w+>/<id:\d+>' => '<controller>/view',
                 '<controller:\w+>/<action:\w+>/<id:\d+>' => '<controller>/<action>',

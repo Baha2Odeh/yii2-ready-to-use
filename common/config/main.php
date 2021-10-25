@@ -23,9 +23,15 @@ return [
             'appendTimestamp' => true,
         ],
         'urlManager' => [
-            'class' => 'codemix\localeurls\UrlManager',
+            //'class' => 'codemix\localeurls\UrlManager',
+            'class' => common\components\UrlManager::class,
             'languages' => LanguageHelpers::getLanguagesIso(),
-            'enableDefaultLanguageUrlCode' => true
+            'enableDefaultLanguageUrlCode' => true,
+            'ignoreLanguageUrlPatterns' => [
+                // route pattern => url pattern
+                '#^api/#' => '#^api/#',
+                '#^cdn/#' => '#^cdn/#',
+            ],
         ],
         // 'cache' => [
         //     'class' => 'yii\caching\FileCache',
